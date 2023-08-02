@@ -2,11 +2,12 @@
 @section('title', 'Funcionarios')
 
 @section('content')
+    <x-btn-create/>
     <h1 class="fs-2 mb-3">Lista Funcionários</h1>
 
     <table class="table table-striped">
         <thead class="table-dark">
-          <tr>
+          <tr class="text-center">
             <th scope="col">ID</th>
             <th scope="col">Foto</th>
             <th scope="col">Nome</th>
