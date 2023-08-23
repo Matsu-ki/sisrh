@@ -8,6 +8,11 @@
     </x-btn-create>
     <h1 class="fs-2 mb-3">Lista Funcionários</h1>
 
+    @if (Session::get('sucesso'))
+        <div class="alert alert-success text-center">{{ Session::get('sucesso') }}</div>
+
+    @endif
+
     <table class="table table-striped">
         <thead class="table-dark">
           <tr class="text-center">
@@ -20,17 +25,20 @@
           </tr>
         </thead>
         <tbody>
+
+            @foreach ($funcionarios as $funcionario)
           <tr>
-            <th scope="row">1</th>
-            <td>Foto</td>
-            <td>Eduardo</td>
-            <td>Developer</td>
-            <td>Sistemas de Informação</td>
-            <td>
+            <th class="text-center" scope="row">{{ $funcionario->id }}</th>
+            <td class="text-center">Foto</td>
+            <td class="text-center">{{ $funcionario->nome}}</td>
+            <td class="text-center">{{ $funcionario->cargo->descricao}}</td>
+            <td class="text-center">{{ $funcionario->departamento->nome}}</td>
+            <td class="text-center">
                 <a href="" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
                 <a href="" title="Deletar" class="btn btn-danger"><i class="bi bi-trash"></i></a>
             </td>
           </tr>
+          @endforeach
         </tbody>
       </table>
 @endsection
