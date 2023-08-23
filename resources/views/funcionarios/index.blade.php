@@ -29,7 +29,13 @@
             @foreach ($funcionarios as $funcionario)
           <tr>
             <th class="text-center" scope="row">{{ $funcionario->id }}</th>
-            <td class="text-center">Foto</td>
+            <td class="text-center">
+                @if (empty($funcionario->foto))
+                    <img src="/images/sombra_funcionario.jpg" alt="foto" class="img-thumbnail" width="70">
+                @else
+                    <img src="" alt="fotos" class="img-thumbnail" width="70">
+                @endif
+            </td>
             <td class="text-center">{{ $funcionario->nome}}</td>
             <td class="text-center">{{ $funcionario->cargo->descricao}}</td>
             <td class="text-center">{{ $funcionario->departamento->nome}}</td>
