@@ -27,3 +27,6 @@ Route::get('/funcionarios', [FuncionarioController::class, 'index'])->name('func
 Route::get('/funcionarios/create', [FuncionarioController::class, 'create'])->name('funcionarios.create');
 Route::post('/funcionarios', [FuncionarioController::class, 'store'])->name('funcionarios.store');
 Route::get('/departamentos', [DepartamentoController::class, 'index'])->name('departamentos.index');
+Route::get('/funcionarios/{id}/edit', [FuncionarioController::class, 'edit'])->name('funcionarios.edit');
+Route::put('/funcionarios/{id}', [FuncionarioController::class, 'update'])->name('funcionarios.update');
+Route::delete('/funcionarios/{id}/delete', [FuncionarioController::class, 'destroy'])->name('funcionarios.destroy');
