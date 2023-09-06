@@ -46,7 +46,7 @@
                     <x-slot name="id">{{$funcionario->id }}</x-slot>
                     <x-slot name="tipo">funcionario</x-slot>
                     <x-slot name="nome">{{ $funcionario->nome }}</x-slot>
-                    <x-slot name="rota">funcionario.destroy</x-slot>
+                    <x-slot name="rota">funcionarios.destroy</x-slot>
                 </x-modal-delete>
             </td>
           </tr>
