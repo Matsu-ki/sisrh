@@ -15,7 +15,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link text-white btn btn-primary text-start">
+            <a href="{{ route('cargos.index') }}" class="nav-link text-white btn btn-primary text-start">
                 <i class="bi bi-person-vcard mx-2 fs-5 align-middle"></i>Cargos
             </a>
         </li>
@@ -37,7 +37,7 @@
             <strong>Usuário</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-            <li><a class="dropdown-item" href="#">Alterar dados</a></li>
+            <li><a class="dropdown-item" href="{{ route('users.index') }}">Alterar dados</a></li>
             <li>
                 <hr class="dropdown-divider">
             </li>
