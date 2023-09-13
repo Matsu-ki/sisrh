@@ -48,22 +48,19 @@ class UserController extends Controller
 
         $user->name = $request->input('name');
 
-        // Verifique se a senha foi fornecida no formulário e, se sim, criptografe-a
         if ($request->has('password')) {
             $user->password = bcrypt($request->input('password'));
         }
 
-        $user->tipo = $request->input('tipo'); // Certifique-se de atualizar o campo 'tipo' corretamente
+        $user->tipo = $request->input('tipo');
 
         $user->save();
 
         return redirect()->route('users.index')->with('sucesso', 'Usuário alterado com sucesso!');
     }
 
-
-
     public function destroy(User $user)
     {
-        // Lógica para excluir um usuário
+
     }
 }

@@ -29,6 +29,11 @@
                 <i class="bi bi-star mx-2 fs-5 align-middle"></i>Benefícios
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('users.index') }}" class="nav-link text-white btn btn-primary text-start">
+                <i class="bi bi-person mx-2 fs-5 align-middle"></i>Usuário
+            </a>
+        </li>
     </ul>
     <hr>
     <div class="dropdown">
@@ -37,7 +42,7 @@
             <strong>Usuário</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-            <li><a class="dropdown-item" href="{{ route('users.index') }}">Alterar dados</a></li>
+            <li><a class="dropdown-item" href="#">Alterar dados</a></li>
             <li>
                 <hr class="dropdown-divider">
             </li>

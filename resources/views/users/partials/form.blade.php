@@ -8,7 +8,7 @@
   </div>
   <div class="col-md-4">
     <label for="email" class="form-label">Senha</label>
-    <input type="password" class="form-control" id="password" name="password" value="{{ $user->password ?? "" }}" required>
+    <input type="password" class="form-control" id="password" name="password" value="" @required(!isset($user->password))>
     </div>
     <div class="col-md-4">
         <label for="tipo" class="form-label">Tipo</label>
