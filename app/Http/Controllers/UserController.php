@@ -4,19 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $user = User::all()->sortBy('name');
-        return view('users.index', compact('user'));
+        $totalUsers = User::all()->count();
+
+        if(Gate::allows('tipo-user')){
+            return view('users.index', compact('user', 'totalUsers'));
+        }else{
+            return back();
+        }
+
+
     }
 
     public function create()
     {
         $user = new User();
+        if(Gate::allows('tipo-user')){
         return view('users.create', compact('user'));
+        }else{
+            return back();
+        }
     }
 
     public function store(Request $request)
@@ -39,7 +58,11 @@ class UserController extends Controller
             return back();
         }
 
-        return view('users.edit', compact('user'));
+        if(auth()->user()->id == $user['id'] || auth()->user()->tipo == 'admin'){
+            return view('users.edit', compact('user'));
+        }else{
+            return back();
+        }
     }
 
     public function update(Request $request, string $id)
@@ -47,13 +70,21 @@ class UserController extends Controller
         $user = User::find($id);
 
         $user->name = $request->input('name');
+        $input = $request->all();
 
-        if ($request->has('password')) {
+        /*if ($request->has('password')) {
             $user->password = bcrypt($request->input('password'));
+        }*/
+
+        if($request->password){
+            $input['password'] = bcrypt($input['password']);
+        }else{
+            $input['password'] = $user['password'];
         }
 
-        $user->tipo = $request->input('tipo');
+        //$user->tipo = $request->input('tipo');
 
+        $user->fill($input);
         $user->save();
 
         return redirect()->route('users.index')->with('sucesso', 'Usuário alterado com sucesso!');

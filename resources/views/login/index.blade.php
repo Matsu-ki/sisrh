@@ -12,6 +12,14 @@
 <body class="bg-primary">
     <div class="bg-white container p-5 position-absolute top-50 start-50 translate-middle rounded-4 shadow" style="max-width: 400px">
         <img src="{{ asset('images/logo_color.png') }}" alt="SisRH" height="40" class="d-block mx-auto mb-4">
+
+        @isset($_GET['msg'])
+        <div class="alert alert-danger text-bg-danger p-2">Realize o login para acessar.</div>
+        @endisset
+
+
+        
+
         @if ($errors->any())
             @foreach ($errors->all() as  $error)
                 <div class="alert alert-danger text-bg-danger p-2">{{ $error }}</div>

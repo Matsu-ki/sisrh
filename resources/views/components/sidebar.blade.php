@@ -29,11 +29,14 @@
                 <i class="bi bi-star mx-2 fs-5 align-middle"></i>Benefícios
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{ route('users.index') }}" class="nav-link text-white btn btn-primary text-start">
-                <i class="bi bi-person mx-2 fs-5 align-middle"></i>Usuário
-            </a>
-        </li>
+        @can('tipo-user')
+            <li class="nav-item">
+                <a href="{{ route('users.index') }}" class="nav-link text-white btn btn-primary text-start">
+                    <i class="bi bi-person mx-2 fs-5 align-middle"></i>Usuário
+                </a>
+            </li>
+        @endcan
+
     </ul>
     <hr>
     <div class="dropdown">
