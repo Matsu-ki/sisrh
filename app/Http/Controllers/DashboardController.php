@@ -13,7 +13,6 @@ class DashboardController extends Controller
     {
         $this->middleware('auth');
     }
-
     public function index()
     {
         $totalFuncionarios = Funcionario::where('status','on')->count();
@@ -23,15 +22,11 @@ class DashboardController extends Controller
         $somaSalarios = Funcionario::where('status','on')->sum('salario');
 
         //dados dos departamentos
-
         $dapartamentos = Departamento::all()->sortBy('name');
+        //dados dos cargos
+        $cargos = Cargo::all()->sortBy('descricao');
 
-        foreach($dapartamentos AS $departamento){
-            $nomeDepartamento[] = ",".$departamento->nome."'";
-            //$totalFuncionariosDepartamentos[] =
-        }
-
-        return view('dashboard.index', compact('totalFuncionarios', 'totalCargos', 'totalDepartamentos', 'somaSalarios'));
+        return view('dashboard.index', compact('totalFuncionarios', 'totalCargos', 'totalDepartamentos', 'somaSalarios', 'dapartamentos', 'cargos'));
     }
 
     /**
