@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cargo;
+use App\Models\Departamento;
+use App\Models\Funcionario;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -10,10 +13,25 @@ class DashboardController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
-        //
+        $totalFuncionarios = Funcionario::where('status','on')->count();
+        $totalCargos = Cargo::all()->count();
+        $totalDepartamentos = Departamento::all()->count();
+
+        $somaSalarios = Funcionario::where('status','on')->sum('salario');
+
+        //dados dos departamentos
+
+        $dapartamentos = Departamento::all()->sortBy('name');
+
+        foreach($dapartamentos AS $departamento){
+            $nomeDepartamento[] = ",".$departamento->nome."'";
+            //$totalFuncionariosDepartamentos[] =
+        }
+
+        return view('dashboard.index', compact('totalFuncionarios', 'totalCargos', 'totalDepartamentos', 'somaSalarios'));
     }
 
     /**

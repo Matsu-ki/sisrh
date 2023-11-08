@@ -43,6 +43,7 @@ class UserController extends Controller
         $input = $request->toArray();
         //dd($input);
 
+
         $input['user_id'] = 1;
 
         User::create($input);
@@ -87,7 +88,13 @@ class UserController extends Controller
         $user->fill($input);
         $user->save();
 
-        return redirect()->route('users.index')->with('sucesso', 'Usuário alterado com sucesso!');
+        if($user->type == "admin"){
+            return redirect()->route('users.index')->with('sucesso', 'Usuário alterado com sucesso!');
+        }else{
+            return redirect()->route('users.edit', $user->id)->with('sucesso', 'Usuário alterado com sucesso!');
+        }
+
+
     }
 
     public function destroy(User $user)
