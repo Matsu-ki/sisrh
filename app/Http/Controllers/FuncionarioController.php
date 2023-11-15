@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beneficio;
 use App\Models\Cargo;
 use App\Models\Departamento;
 use App\Models\Funcionario;
@@ -34,7 +35,8 @@ class FuncionarioController extends Controller
     {
         $departamentos = Departamento::all()->sortBy('nome');
         $cargos = Cargo::all()->sortBy('descricao');
-        return view('funcionarios.create', compact('departamentos', 'cargos'));
+        $beneficios = Beneficio::all()->sortBy('descricao');
+        return view('funcionarios.create', compact('departamentos', 'cargos', 'beneficios'));
     }
 
     /**
@@ -45,14 +47,19 @@ class FuncionarioController extends Controller
         $input = $request->toArray();
         //dd($input);
 
-        $input['user_id'] = 1;
+        //armazena o id do user logado no cadastro do funcionário
+        $input['user_id'] = auth()->user()->id;
 
         if($request->hasFile('foto')){
             $input['foto'] = $this->uploadFoto($request->foto);
         }
 
         //INSERT IN TABLE
-        Funcionario::create($input);
+        $funcionario = Funcionario::create($input);
+
+        if($request->beneficios){
+            $funcionario->beneficios()->attach($request->beneficios);
+        }
 
         return redirect()->route('funcionarios.index')->with('sucesso', 'Funcionário cadastrado com sucesso!');
     }
@@ -90,7 +97,14 @@ class FuncionarioController extends Controller
 
         $departamentos = Departamento::all()->sortBy('nome');
         $cargos = Cargo::all()->sortBy('descricao');
-        return view('funcionarios.edit', compact('funcionario', 'departamentos', 'cargos'));
+        $beneficios = Beneficio::all()->sortBy('descricao');
+
+        //array de beneficios do funcionario
+        foreach($funcionario->beneficios AS $beneficio){
+            $beneficio_selecionados[] = $beneficio->id;
+        }
+
+        return view('funcionarios.edit', compact('funcionario', 'departamentos', 'cargos', 'beneficios', 'beneficio_selecionados'));
 
     }
 
