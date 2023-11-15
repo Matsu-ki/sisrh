@@ -99,6 +99,8 @@ class FuncionarioController extends Controller
         $cargos = Cargo::all()->sortBy('descricao');
         $beneficios = Beneficio::all()->sortBy('descricao');
 
+        $beneficio_selecionados = [];
+
         //array de beneficios do funcionario
         foreach($funcionario->beneficios AS $beneficio){
             $beneficio_selecionados[] = $beneficio->id;
@@ -120,6 +122,10 @@ class FuncionarioController extends Controller
         if($request->hasFile('foto')){
             Storage::delete('public/funcionarios/'.$funcionario['foto']);
             $input['foto'] = $this->uploadFoto($request->foto);
+        }
+
+        if($request->beneficios){
+            $funcionario->beneficios()->sync($input['beneficios']);
         }
 
         $funcionario->fill($input);
