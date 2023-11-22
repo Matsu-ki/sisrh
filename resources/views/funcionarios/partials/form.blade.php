@@ -15,6 +15,10 @@
           <option value="o" @if(isset($funcionario->sexo)) @selected($funcionario->sexo == 'o') @endif>Outros</option>
       </select>
     </div>
+    <div class="col-md-4">
+        <label for="status" class="form-label">Status</label>
+        <input type="text" class="form-control" id="status" name="status" value="{{ $funcionario->status ?? "" }}" required>
+      </div>
   <div class="col-md-4">
     <label for="cpf" class="form-label">CPF</label>
     <input type="text" class="form-control" id="cpf" name="cpf" minlength="11" maxlength="11" value="{{ $funcionario->cpf ?? "" }}" required>
@@ -64,6 +68,7 @@
     <img src="/images/sombra_funcionario.jpg" alt="" class="img-thumbnail">
     @endif
   </div>
+
   <div class="col-md-6">
       <label for="foto" class="form-label">Foto</label>
       <input type="file" class="form-control" id="foto" name="foto">
@@ -80,3 +85,5 @@
         @endforeach
     </div>
   </div>
+
+

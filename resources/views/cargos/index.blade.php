@@ -29,7 +29,13 @@
                 <td class="text-center">{{ $cargo->descricao }}</td>
                 <td class="text-center">
                     <a href="{{ route('cargos.edit', $cargo->id) }}" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
-                    <a href="" title="Deletar" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                    <a href="" title="Deletar" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ $cargo->id }}"><i class="bi bi-trash"></i></a>
+                    <x-modal-delete>
+                        <x-slot name="id">{{$cargo->id }}</x-slot>
+                        <x-slot name="tipo">cargo</x-slot>
+                        <x-slot name="nome">{{ $cargo->descricao }}</x-slot>
+                        <x-slot name="rota">cargos.destroy</x-slot>
+                    </x-modal-delete>
                 </td>
             </tr>
         @endforeach

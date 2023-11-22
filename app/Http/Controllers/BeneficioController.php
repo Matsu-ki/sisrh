@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beneficio;
 use Illuminate\Http\Request;
 
 class BeneficioController extends Controller
@@ -10,10 +11,13 @@ class BeneficioController extends Controller
     {
         $this->middleware('auth');
     }
-    
-    public function index()
+
+    public function index(Request $request)
     {
-        //
+        $beneficios = Beneficio::where('descricao', 'like', '%'.$request->busca.'%')->orderBy('descricao', 'asc')->paginate(3);
+        $totalBeneficios = Beneficio::all()->count();
+
+        return view('beneficios.index', compact('beneficios', 'totalBeneficios'));
     }
 
     /**
@@ -21,7 +25,9 @@ class BeneficioController extends Controller
      */
     public function create()
     {
-        //
+        $beneficios = Beneficio::all()->sortBy('descricao');
+
+        return view('beneficios.create', compact('beneficios'));
     }
 
     /**
@@ -29,7 +35,13 @@ class BeneficioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->toArray();
+        //dd($input);
+
+        $input['user_id'] = auth()->user()->id;
+        Beneficio::create($input);
+
+        return redirect()->route('beneficios.index')->with('sucesso', 'Beneficio cadastrado com sucesso!');
     }
 
     /**
@@ -45,7 +57,8 @@ class BeneficioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $beneficio = Beneficio::find($id);
+        return view('beneficios.edit', compact('beneficio'));
     }
 
     /**
@@ -53,7 +66,12 @@ class BeneficioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $beneficios = Beneficio::find($id);
+
+        $beneficios->descricao = $request->input('descricao');
+        $beneficios->save();
+
+        return redirect()->route('beneficios.index')->with('sucesso', 'Beneficio alterado com sucesso!');
     }
 
     /**
@@ -61,6 +79,9 @@ class BeneficioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $beneficio = Beneficio::find($id);
+
+        $beneficio->delete();
+        return redirect()->route('beneficios.index')->with('sucesso', 'Beneficio deletado com sucesso!');
     }
 }

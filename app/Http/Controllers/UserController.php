@@ -97,8 +97,11 @@ class UserController extends Controller
 
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user, string $id)
     {
+        $user = User::find($id);
 
+        $user->delete();
+        return redirect()->route('cargos.index')->with('sucesso', 'Usuário deletado com sucesso!');
     }
 }

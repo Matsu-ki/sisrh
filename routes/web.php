@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BeneficioController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartamentoController;
@@ -39,12 +40,23 @@ Route::post('/departamentos', [DepartamentoController::class, 'store'])->name('d
 Route::get('/departamentos/create', [DepartamentoController::class, 'create'])->name('departamentos.create');
 Route::put('/departamentos/{id}', [DepartamentoController::class, 'update'])->name('departamentos.update');
 Route::get('/departamentos/{id}/edit', [DepartamentoController::class, 'edit'])->name('departamentos.edit');
+Route::delete('/departamentos/{id}/delete', [DepartamentoController::class, 'destroy'])->name('departamentos.destroy');
+
 
 Route::get('/cargos', [CargoController::class, 'index'])->name('cargos.index');
 Route::post('/cargos', [CargoController::class, 'store'])->name('cargos.store');
 Route::get('/cargos/create', [CargoController::class, 'create'])->name('cargos.create');
 Route::put('/cargos/{id}', [CargoController::class, 'update'])->name('cargos.update');
 Route::get('/cargos/{id}/edit', [CargoController::class, 'edit'])->name('cargos.edit');
+Route::delete('/cargos/{id}/delete', [CargoController::class, 'destroy'])->name('cargos.destroy');
+
+
+Route::get('/beneficios', [BeneficioController::class, 'index'])->name('beneficios.index');
+Route::post('/beneficios', [BeneficioController::class, 'store'])->name('beneficios.store');
+Route::get('/beneficios/create', [BeneficioController::class, 'create'])->name('beneficios.create');
+Route::put('/beneficios/{id}', [BeneficioController::class, 'update'])->name('beneficios.update');
+Route::get('/beneficios/{id}/edit', [BeneficioController::class, 'edit'])->name('beneficios.edit');
+Route::delete('/beneficios/{id}/delete', [BeneficioController::class, 'destroy'])->name('beneficios.destroy');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
