@@ -12,10 +12,15 @@ class CargoController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $cargos = Cargo::all()->sortBy('descricao');
-        return view('cargos.index', compact('cargos'));
+        /*$cargos = Cargo::all()->sortBy('descricao');
+        return view('cargos.index', compact('cargos'));*/
+
+        $cargos = Cargo::where('descricao', 'like', '%'.$request->busca.'%')->orderBy('descricao', 'asc')->paginate(3);
+        $totalCargos = Cargo::all()->count();
+
+        return view('cargos.index', compact('cargos', 'totalCargos'));
     }
 
     /**
